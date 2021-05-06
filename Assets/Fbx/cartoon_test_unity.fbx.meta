@@ -1,0 +1,213 @@
+fileFormatVersion: 2
+guid: 62d643a28c7feab4fbc7c96f002f46f2
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Shape_Cylinder.001
+    100004: Shape_Cylinder.002
+    100006: Shape_Cylinder.033
+    100008: Shape_Cylinder.067
+    100010: Shape_Cylinder.245
+    100012: Shape_Cylinder.246
+    100014: Shape_Cylinder.304
+    100016: Shape_Cylinder.305
+    100018: Shape_Cylinder.306
+    100020: Shape_Cylinder.319
+    100022: Shape_IndexedFaceSet
+    100024: Shape_Sphere.096
+    100026: Shape_Sphere.098
+    100028: Shape_Sphere.099
+    100030: Shape_Sphere.100
+    100032: Shape_Sphere.101
+    100034: Shape_Sphere.102
+    100036: Shape_Sphere.216
+    100038: Shape_Sphere.217
+    100040: Shape_Sphere.218
+    100042: Shape_Sphere.219
+    100044: Shape_Sphere.220
+    100046: Shape_Sphere.221
+    400000: //RootNode
+    400002: Shape_Cylinder.001
+    400004: Shape_Cylinder.002
+    400006: Shape_Cylinder.033
+    400008: Shape_Cylinder.067
+    400010: Shape_Cylinder.245
+    400012: Shape_Cylinder.246
+    400014: Shape_Cylinder.304
+    400016: Shape_Cylinder.305
+    400018: Shape_Cylinder.306
+    400020: Shape_Cylinder.319
+    400022: Shape_IndexedFaceSet
+    400024: Shape_Sphere.096
+    400026: Shape_Sphere.098
+    400028: Shape_Sphere.099
+    400030: Shape_Sphere.100
+    400032: Shape_Sphere.101
+    400034: Shape_Sphere.102
+    400036: Shape_Sphere.216
+    400038: Shape_Sphere.217
+    400040: Shape_Sphere.218
+    400042: Shape_Sphere.219
+    400044: Shape_Sphere.220
+    400046: Shape_Sphere.221
+    2100000: white
+    2100002: Material.002
+    2100004: Material.001
+    2100006: Material.003
+    2100008: red_star
+    2300000: Shape_Cylinder.001
+    2300002: Shape_Cylinder.002
+    2300004: Shape_Cylinder.033
+    2300006: Shape_Cylinder.067
+    2300008: Shape_Cylinder.245
+    2300010: Shape_Cylinder.246
+    2300012: Shape_Cylinder.304
+    2300014: Shape_Cylinder.305
+    2300016: Shape_Cylinder.306
+    2300018: Shape_Cylinder.319
+    2300020: Shape_IndexedFaceSet
+    2300022: Shape_Sphere.096
+    2300024: Shape_Sphere.098
+    2300026: Shape_Sphere.099
+    2300028: Shape_Sphere.100
+    2300030: Shape_Sphere.101
+    2300032: Shape_Sphere.102
+    2300034: Shape_Sphere.216
+    2300036: Shape_Sphere.217
+    2300038: Shape_Sphere.218
+    2300040: Shape_Sphere.219
+    2300042: Shape_Sphere.220
+    2300044: Shape_Sphere.221
+    3300000: Shape_Cylinder.001
+    3300002: Shape_Cylinder.002
+    3300004: Shape_Cylinder.033
+    3300006: Shape_Cylinder.067
+    3300008: Shape_Cylinder.245
+    3300010: Shape_Cylinder.246
+    3300012: Shape_Cylinder.304
+    3300014: Shape_Cylinder.305
+    3300016: Shape_Cylinder.306
+    3300018: Shape_Cylinder.319
+    3300020: Shape_IndexedFaceSet
+    3300022: Shape_Sphere.096
+    3300024: Shape_Sphere.098
+    3300026: Shape_Sphere.099
+    3300028: Shape_Sphere.100
+    3300030: Shape_Sphere.101
+    3300032: Shape_Sphere.102
+    3300034: Shape_Sphere.216
+    3300036: Shape_Sphere.217
+    3300038: Shape_Sphere.218
+    3300040: Shape_Sphere.219
+    3300042: Shape_Sphere.220
+    3300044: Shape_Sphere.221
+    4300000: Shape_Cylinder.033
+    4300002: Shape_Cylinder.067
+    4300004: Shape_IndexedFaceSet
+    4300006: Shape_Sphere.096
+    4300008: Shape_Cylinder.245
+    4300010: Shape_Sphere.098
+    4300012: Shape_Sphere.099
+    4300014: Shape_Cylinder.246
+    4300016: Shape_Sphere.100
+    4300018: Shape_Sphere.101
+    4300020: Shape_Sphere.102
+    4300022: Shape_Cylinder.304
+    4300024: Shape_Sphere.216
+    4300026: Shape_Sphere.217
+    4300028: Shape_Cylinder.305
+    4300030: Shape_Sphere.218
+    4300032: Shape_Sphere.219
+    4300034: Shape_Cylinder.306
+    4300036: Shape_Sphere.220
+    4300038: Shape_Sphere.221
+    4300040: Shape_Cylinder.319
+    4300042: Shape_Cylinder.001
+    4300044: Shape_Cylinder.002
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
