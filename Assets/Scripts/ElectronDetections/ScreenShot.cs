@@ -1,10 +1,6 @@
 ﻿using TMPro;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-using OpenCVForUnity.CoreModule;
-using OpenCVForUnity.UnityUtils;
-using OpenCVForUnity.ImgprocModule;
 using System.IO;
 using CustomUtils;
 
@@ -19,6 +15,10 @@ using CustomUtils;
 public class ScreenShot : MonoBehaviour
 {
 
+    // testimg
+    public TextMeshProUGUI test;
+    public TextMeshProUGUI test2;
+
     private bool takePicture;
 
     private ElectrionDectectionUIManager Instance;
@@ -32,6 +32,9 @@ public class ScreenShot : MonoBehaviour
 
     private int blurSize;
 
+    public static int DETECTED_VALUE;
+    public static Structure SHARED_STRUCTURE;
+
     void Start(){
         Instance = ElectrionDectectionUIManager.Instance;
 
@@ -39,6 +42,9 @@ public class ScreenShot : MonoBehaviour
         blurSize = 10;
         blurSizeInput.text = blurSize.ToString();
         blurSizeInput.onEndEdit.AddListener(delegate {UpdateValues();} );
+
+        // testing
+        // StartCoroutine(ReadFromStreamingAssets());
     }
 
     void UpdateValues(){
@@ -61,13 +67,13 @@ public class ScreenShot : MonoBehaviour
             RenderTexture.ReleaseTemporary(tempRend);
 
             CallForProcessing(tmpTexture);
+            
         }
-
         Graphics.Blit(src, dest);
     }
 
     private void CallForProcessing(Texture2D tmpTexture){
-        
+         
         savedScreenShotTexture = tmpTexture;
 
         // create and set crop image
@@ -87,9 +93,14 @@ public class ScreenShot : MonoBehaviour
 
         // saving number of electrons data in UI manager file
         // Instance.num_of_elec = num_detections;
+        DETECTED_VALUE = num_detections - 1;
+        test.text = DETECTED_VALUE.ToString();
         Instance.GetJSONData(num_detections-1);
+
         // calling for scanning animation o
         Instance.StartScanningSection(3);
+
+        test.text = "Call for start scanning section!";
     }
 
     public void Regenerate(){
@@ -98,6 +109,35 @@ public class ScreenShot : MonoBehaviour
 
     public void TakeScreenShot(){
         takePicture = true;
+    }
+
+    IEnumerator ReadFromStreamingAssets()
+    {
+        string filePath = System.IO.Path.Combine(Application.streamingAssetsPath+"/", "testdata.txt");
+        // print(filePath);
+        string result = "";
+        Debug.Log("reading . .. .");
+        if (filePath.Contains("://") || filePath.Contains(":///"))
+        {
+            UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(filePath);
+			yield return www.SendWebRequest();
+            result = www.downloadHandler.text;
+            if(result == "")
+                test2.text = "FUCK YOU";
+            else 
+                test2.text = result;
+            
+            Debug.Log("DONE");  
+        }
+        else{
+            result = System.IO.File.ReadAllText(filePath);  
+            test.text = "FAIL";
+            Debug.Log("FAIL");
+        }
+            
+        
+        File.WriteAllText(Application.persistentDataPath + "/data.txt", result);
+        // test2.text = Application.persistentDataPath;
     }
 
 }

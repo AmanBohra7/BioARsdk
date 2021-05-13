@@ -5,19 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/ProteinView.unity
-    guid: 182e2055cc7cc124b8a7591a6aaee315
-  - enabled: 0
-    path: Assets/Scenes/OpenCV.unity
-    guid: c7b79c365bbaa4744a2b1e621d6bab02
-  - enabled: 0
-    path: Assets/Scenes/ModelGenerator.unity
-    guid: 5a870fd4df1d4f346a2407fd0e68f02d
   - enabled: 1
     path: Assets/Scenes/ElectronDetection.unity
     guid: c5b5c828e6765fa428098dfc554f692f
-  - enabled: 0
-    path: Assets/Scenes/CameraTest.unity
-    guid: 0868e02fb19eeb04bbf28671d7df7a59
+  - enabled: 1
+    path: Assets/Scenes/ModelGenerator.unity
+    guid: 5a870fd4df1d4f346a2407fd0e68f02d
+  - enabled: 1
+    path: Assets/Scenes/AR_VIEW.unity
+    guid: 79a8429f99aa7c14588ef5eb1f9b0e33
   m_configObjects: {}

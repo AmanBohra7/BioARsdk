@@ -66,7 +66,7 @@ namespace CustomUtils{
                     contours_list.Add(contours[i]);
                     num = num + 1;
                 }
-            }
+            }   
             detectionCount = num;
 
             for(int i = 0 ; i < contours_list.Count ; i++){
@@ -95,18 +95,32 @@ namespace CustomUtils{
         public static string GetElementData(int num){
             string jsonstring = "";
 
-            if (File.Exists("Assets/DATA/PeriodicTableJson/Data.txt")){
-                string saveString = File.ReadAllText("Assets/DATA/PeriodicTableJson/Data.txt");
+            string PATH;
+            #if UNITY_ANDROID
+                PATH = Application.persistentDataPath + "/data.txt";
+            #else
+                PATH = "Assets/DATA/PeriodicTableJson/Data.txt"
+            #endif
+            // "Assets/DATA/PeriodicTableJson/Data.txt"
+            if (File.Exists(PATH)){
+                string saveString = File.ReadAllText(PATH);
                 SimpleJSON.JSONNode data = SimpleJSON.JSON.Parse(saveString);
                 jsonstring = data[num.ToString()].ToString();
                 return jsonstring;
             }else{
-                Debug.Log("JSON DATA HAVE SOME VALUE ERROR!");
+                PATH  = "jar:file://" + Application.dataPath + "!/assets/data.txt";
+                if (File.Exists(PATH)){
+                    string saveString = File.ReadAllText(PATH);
+                    SimpleJSON.JSONNode data = SimpleJSON.JSON.Parse(saveString);
+                    jsonstring = data[num.ToString()].ToString();
+                    return jsonstring;
+                 }else{
+                     Debug.Log("JSON DATA HAVE SOME VALUE ERROR!");
+                     return "JSON DATA HAVE SOME VALUE ERROR!";
+                 }
+                
             }
-
-            return jsonstring;
-        }   
-
+        }
 
     }
 

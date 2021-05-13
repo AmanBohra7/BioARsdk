@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - InfoTag
+  - StructureParent
   layers:
   - Default
   - TransparentFX

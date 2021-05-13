@@ -1,14 +1,19 @@
- using UnityEngine.UI;
+using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
 using TMPro;
 using System;
 using CustomUtils;
-
+using UnityEngine.SceneManagement;
 
 public class ElectrionDectectionUIManager : MonoBehaviour{
    
     public static ElectrionDectectionUIManager Instance {get; private set;}
+
+    public static Structure SHARED_STRUCTURE;
+
+    // TESTING
+    public TextMeshProUGUI test;
 
     // functionalites related variables
     public GameObject bottomSlideBar;
@@ -16,7 +21,8 @@ public class ElectrionDectectionUIManager : MonoBehaviour{
     public GameObject cameraBtn;
 
     // Slider related variable
-    public GameObject slider_btn_hider;
+    public GameObject slider_content_hider;
+    public GameObject bottom_slider;
 
     // Update information variables;
     public TextMeshProUGUI elem_name;
@@ -39,9 +45,10 @@ public class ElectrionDectectionUIManager : MonoBehaviour{
     public GameObject detectionInforamtion;
 
     void Awake(){
+
         if(Instance == null){
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         } 
         else{
             Destroy(this);
@@ -54,28 +61,39 @@ public class ElectrionDectectionUIManager : MonoBehaviour{
         bottomSlideBar.GetComponent<RectTransform>().localPosition = sliderInitialPose;
     }
 
+    #region SceneChange Region
+
+    // called from GenerateBtn region - ChangeSceenAnimation function
+    IEnumerator LoadNextScene(float waitTime){
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    #endregion
+
     #region Updating Data
 
     // called from ScreenShot.cs
-    public void GetJSONData(int test){
-        string jsonstring = UtilsClass.GetElementData(test);
-        Debug.Log(jsonstring);
-
+    public void GetJSONData(int req_num){
+        test.text = "GOT INTO GET JSON";
+        string jsonstring = UtilsClass.GetElementData(req_num);
+        if(jsonstring == "JSON DATA HAVE SOME VALUE ERROR!")
+            test.text = jsonstring;
+        // test.text = jsonstring;
         try{
             Structure st = Newtonsoft.Json.JsonConvert.DeserializeObject<Structure>(jsonstring);
-            UpdateSliderBarData(st,test);
+            SHARED_STRUCTURE = st;
+            UpdateSliderBarData(st,req_num);
         }catch(Exception e){
             Debug.Log("JSON DATA HAVE SOME VALUE ERROR!");
         }
-
     }
-
 
     private void UpdateSliderBarData(Structure st,int num){
         elem_name.text = st.name;
         elem_atomic_number.text = st.number.ToString();
         elem_symbol.text = st.symbol;
-        elem_disp.text = "Detected drawing has" + num.ToString() + " dots, or " + (num-1).ToString()+ "electrons. The element is "+st.name+".";
+        elem_disp.text = "Detected drawing has " + (num+1).ToString() + " dots, or " + (num).ToString()+ " electrons. The element is "+st.name+".";
     }
 
     #endregion
@@ -87,17 +105,29 @@ public class ElectrionDectectionUIManager : MonoBehaviour{
     }
 
     private IEnumerator ChangeSceenAnimation(int waitTime = 0){
-        yield return new WaitForSeconds(waitTime);
-        // performa animation code
+
+        // hide slider content
+        yield return new WaitForSeconds(.5f);
+        LeanTween.value(slider_content_hider,LeanTweenValueHelper,1,0,1f);
+
+        // move slider
+        yield return new WaitForSeconds(1f);
         float movePoseY = Screen.height ;
         LeanTween.moveLocalY(bottomSlideBar,
-           0,
+           100,
             .8f
-        ).setEaseOutCubic().setDelay(.5f);
+        ).setEaseOutCubic();
 
-    
+        // hide slider
+        yield return new WaitForSeconds(.9f);
+        // LeanTween.value(bottom_slider,HideSliderOverAllCoroutine,1,0,1.5f);
+        
+        // change seen
+        StartCoroutine(LoadNextScene(0f));         
+    }
 
-        LeanTween.alpha(slider_btn_hider.GetComponent<RectTransform>(),1,0.4f).setDelay(.15f);
+    void HideSliderOverAllCoroutine(float val,float ratio){
+        bottom_slider.GetComponent<CanvasGroup>().alpha = val;
     }
 
     #endregion
@@ -153,17 +183,28 @@ public class ElectrionDectectionUIManager : MonoBehaviour{
 
     private IEnumerator ShowBottomSlideBarCorutine(int waitTime = 0){
         yield return new WaitForSeconds(waitTime);
-        // performa animation code
-        print("TEST");
+        
+        // hiding camera btn
+        LeanTween.alpha(cameraBtn.GetComponent<RectTransform>(),0,.5f);
+
+        // moving the bottom slider upside to show information of the detection structure
         float movePoseY = Screen.height - 600;
         LeanTween.moveLocalY(bottomSlideBar,
             -movePoseY,
             .5f
-        ).setEaseOutQuad();
-        LeanTween.alpha(cameraBtn.GetComponent<RectTransform>(),0,.1f);
-        LeanTween.alpha(slider_btn_hider.GetComponent<RectTransform>(),0,0.4f).setDelay(.7f);
+        ).setEaseOutQuad().setDelay(.5f);
+        
+        // showing up the buttons in slider
+        yield return new WaitForSeconds(1.1f);
+        LeanTween.value(slider_content_hider,LeanTweenValueHelper,0,1,1f);
+        
     }
     
+    private void LeanTweenValueHelper(float val,float ratio){
+        // Debug.Log("TEST");
+        slider_content_hider.GetComponent<CanvasGroup>().alpha = val;
+    }
+
     private IEnumerator HideBottomSlideBarCorutine(int waitTime = 0){
         yield return new WaitForSeconds(waitTime);
         // performa animation code

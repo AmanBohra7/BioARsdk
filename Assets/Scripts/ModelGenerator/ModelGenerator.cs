@@ -8,15 +8,26 @@ using CustomUtils;
 public class ModelGenerator : MonoBehaviour
 {
 
+    public GameObject structureParent;
+
     public GameObject m_nucleusPrefab;
     public GameObject m_electronPrefab; 
     public List<GameObject> m_ringsPrefab;
 
-
     void Start(){
         // The value in the function will be changed according to the input from 
         // electron detect scene
-        CreateStructure(3);
+        // int num = ScreenShot.DETECTED_VALUE;
+       
+        int num = ElectrionDectectionUIManager.SHARED_STRUCTURE.number;
+        if(num != 0)
+            CreateStructure(num);
+        else{
+            CreateStructure(11);
+            Debug.Log("NO received value from screen shot script!");
+        }
+          
+        // CreateStructure(10);
     }
 
 
@@ -28,7 +39,7 @@ public class ModelGenerator : MonoBehaviour
     public void CreateStructure(int num_elec){
 
         string jsonstring = UtilsClass.GetElementData(num_elec);
-        Debug.Log(jsonstring);
+        // Debug.Log(jsonstring);
         try{
             Structure st = Newtonsoft.Json.JsonConvert.DeserializeObject<Structure>(jsonstring);
             GenerateStructureModel(st);
@@ -46,12 +57,12 @@ public class ModelGenerator : MonoBehaviour
     ///<param name="mol">mol</param>
     public void GenerateStructureModel(Structure mol){
 
-        GameObject parentObj = new GameObject(mol.name);
-        parentObj.transform.position = Vector3.zero;
+        // GameObject parentObj = new GameObject(mol.name);
+        // parentObj.transform.position = Vector3.zero;
 
-        CreateNucleus(new Vector3(0,0,0),parentObj.transform);
+        CreateNucleus(structureParent.transform.position,structureParent.transform);
         // create electron function is called in createShellRing function 
-        CreateShellRing(new Vector3(0,0,0),parentObj.transform,mol.shells);
+        CreateShellRing(structureParent.transform.position,structureParent.transform,mol.shells);
 
     }
 
@@ -70,10 +81,10 @@ public class ModelGenerator : MonoBehaviour
         float radius = (boxCollider.size.x / 2) - 0.05f;
         for(int i = 0 ; i < num_ele ; i++){        
             float x =  radius * Mathf.Cos(2 * Mathf.PI * i / num_ele); 
-            float y =  radius * Mathf.Sin(2 * Mathf.PI * i / num_ele);
+            float z =  radius * Mathf.Sin(2 * Mathf.PI * i / num_ele);
             Instantiate(
                 m_electronPrefab,
-                new Vector3(x,0,y),
+                new Vector3(x,structureParent.transform.position.y,z),
                 m_electronPrefab.transform.rotation,
                 ringObject.transform
             );
