@@ -1,4 +1,5 @@
-﻿using GoogleARCore;
+﻿using System.Collections;
+using GoogleARCore;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -24,6 +25,8 @@ public class ViewARController : MonoBehaviour{
     public Camera FirstPersonCamera;
     // Start is called before the first frame update
 
+    private ARviewUI UIinstance;
+
     void Start(){
         screenHeight = Screen.height;
         screenWidth = Screen.width;
@@ -31,6 +34,8 @@ public class ViewARController : MonoBehaviour{
 
         STRUCTURE_ELEMENT = GameObject.FindGameObjectWithTag("StructureParent");
         STRUCTURE_ELEMENT.SetActive(false);
+
+        UIinstance = ARviewUI.Instance;
 
     }
 
@@ -62,6 +67,7 @@ public class ViewARController : MonoBehaviour{
         TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
             TrackableHitFlags.FeaturePointWithSurfaceNormal;
             
+        #region MODEL_PLACEMENT
         if(!m_ProteinPlaced)
             if(Frame.Raycast(centerPose.x, centerPose.y, raycastFilter, out hit)){
  
@@ -87,45 +93,64 @@ public class ViewARController : MonoBehaviour{
                     if(Input.touchCount > 0 && markerCreated && !m_ProteinPlaced){
 
                         m_ProteinPlaced = true;
-                        
-                        Vector3 newScale = new Vector3(.05f,.05f,.05f);
-                        STRUCTURE_ELEMENT.transform.localScale = newScale;
-                        
+
                         // creating new anchor
                         m_ProtienAnchor = hit.Trackable.CreateAnchor(hit.Pose);
-                        
-                        
-                        // position of the placed structure model in AR 
-                        Vector3 newPose = new Vector3(
-                            m_ProtienAnchor.transform.position.x,
-                            m_ProtienAnchor.transform.position.y + .045f,
-                            m_ProtienAnchor.transform.position.z
-                        );
-                        STRUCTURE_ELEMENT.transform.position = newPose;
-                        
-                        // set rotation
-                        // Vector3 newRot = new Vector3(
-                            
-                        // );
-                        
-                        STRUCTURE_ELEMENT.transform.parent = m_ProtienAnchor.transform;
-                        
-                        STRUCTURE_ELEMENT.SetActive(true);
-                        // Debug.Log(hit.Pose);
-                        // Debug.Log(m_ProteinObject.transform.position);
-                        // m_ProteinObject.GetComponent<ProteinContoller>().InitializeContollers();
 
-                        Destroy(markderObj);
-                        markderObj.SetActive(false);
+                        
+                        StartCoroutine(HideMarkerAnim());
+                        
+                        // UIinstance.CreateNamePanel(m_ProtienAnchor.transform.position);
+                        UIinstance.CreateConfigPanel(m_ProtienAnchor.transform.position,
+                                        m_ProtienAnchor.transform);
+
+                        StartCoroutine(ShowStructure(1.1f));
 
                     }
                 }
             }
+
+        #endregion
+
+
     } // end update
 
 
-    void UpdateValues(Transform toThis){
-        
+    IEnumerator HideMarkerAnim(float waitTime = 0){
+        yield return new WaitForSeconds(waitTime);
+        float animTime = 1.2f;
+        LeanTween.scale(markderObj,new Vector3(0f,0f,0f),animTime).setEaseInBack();
+        yield return new WaitForSeconds(animTime);
+        markderObj.SetActive(false);
+    }
+
+    IEnumerator ShowStructure(float waitTime = 0){
+        yield return new WaitForSeconds(waitTime);
+
+        STRUCTURE_ELEMENT.SetActive(true);
+
+        Vector3 newScale = new Vector3(.01f,.01f,.01f);
+        STRUCTURE_ELEMENT.transform.localScale = newScale;
+
+        // position of the placed structure model in AR 
+        Vector3 newPose = new Vector3(
+            m_ProtienAnchor.transform.position.x,
+            m_ProtienAnchor.transform.position.y,
+            m_ProtienAnchor.transform.position.z
+        );
+        STRUCTURE_ELEMENT.transform.position = newPose;
+
+        // parent
+        STRUCTURE_ELEMENT.transform.parent = m_ProtienAnchor.transform;
+
+        float animationTime = 1.2f;
+        LeanTween.moveY(STRUCTURE_ELEMENT,m_ProtienAnchor.transform.position.y + .15f,animationTime).setEaseOutBack();
+        newScale = new Vector3(.05f,.05f,.05f);
+        LeanTween.scale(STRUCTURE_ELEMENT,newScale,animationTime).setEaseOutBack();
+        // Vector3 newRot = new Vector3(-37f,-0.7f,-14f);
+        Vector3 newRot = new Vector3(-10f,-122f,-132f);
+        LeanTween.rotate(STRUCTURE_ELEMENT,newRot,animationTime).setEaseOutBack();
+
     }
 
 }

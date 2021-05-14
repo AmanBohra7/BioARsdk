@@ -15,19 +15,16 @@ public class ModelGenerator : MonoBehaviour
     public List<GameObject> m_ringsPrefab;
 
     void Start(){
-        // The value in the function will be changed according to the input from 
-        // electron detect scene
-        // int num = ScreenShot.DETECTED_VALUE;
        
-        int num = ElectrionDectectionUIManager.SHARED_STRUCTURE.number;
-        if(num != 0)
-            CreateStructure(num);
-        else{
-            CreateStructure(11);
-            Debug.Log("NO received value from screen shot script!");
-        }
+        // int num = ElectrionDectectionUIManager.SHARED_STRUCTURE.number;
+        // if(num != 0)
+        //     CreateStructure(num);
+        // else{
+        //     CreateStructure(11);
+        //     Debug.Log("NO received value from screen shot script!");
+        // }
           
-        // CreateStructure(10);
+        CreateStructure(10);
     }
 
 
