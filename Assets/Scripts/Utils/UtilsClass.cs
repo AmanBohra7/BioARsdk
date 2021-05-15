@@ -122,6 +122,67 @@ namespace CustomUtils{
             }
         }
 
+
+        public static void ChangeStructureToColored(GameObject st,Material red,Material blue,Material ring){
+            for(int i = 0 ; i < st.transform.childCount ; ++i){
+                GameObject child = st.transform.GetChild(i).gameObject;
+                if(child.tag == "Nu"){
+                    child.GetComponent<MeshRenderer>().material = blue;
+                }else{
+                    child.GetComponent<MeshRenderer>().material = ring;
+                    for(int j = 0 ; j < child.transform.childCount ; ++j){
+                        GameObject e = child.transform.GetChild(j).gameObject;
+                        e.GetComponent<MeshRenderer>().material = red;
+                    }
+                }
+            }
+        }
+
+        public static void RemoveStructureColor(GameObject st,Material mat){
+            for(int i = 0 ; i < st.transform.childCount ; ++i){
+                GameObject child = st.transform.GetChild(i).gameObject;
+                if(child.tag == "Nu"){
+                    child.GetComponent<MeshRenderer>().material = mat;
+                }else{
+                    child.GetComponent<MeshRenderer>().material = mat;
+                    for(int j = 0 ; j < child.transform.childCount ; ++j){
+                        GameObject e = child.transform.GetChild(j).gameObject;
+                        e.GetComponent<MeshRenderer>().material = mat;
+                    }
+                }
+            }
+        }
+
+
+        public static void ToggleGizmos(GameObject st,bool state){
+            for(int i = 0 ; i < st.transform.childCount ; ++i){
+                GameObject child = st.transform.GetChild(i).gameObject;
+                if(child.tag == "Nu")
+                    child.transform.GetChild(0).gameObject.SetActive(state);
+                if(child.tag == "Ring"){
+                    for(int j = 0 ; j < child.transform.childCount ; ++j){
+                        GameObject e = child.transform.GetChild(j).gameObject;
+                        e.transform.GetChild(0).gameObject.SetActive(state);
+                    }
+                }
+            }
+        }
+
+
+        public static Color32 ToColor(string hex){
+            hex = hex.Replace ("0x", "");//in case the string is formatted 0xFFFFFF
+            hex = hex.Replace ("#", "");//in case the string is formatted #FFFFFF
+            byte a = 255;//assume fully visible unless specified in hex
+            byte r = byte.Parse(hex.Substring(0,2), System.Globalization.NumberStyles.HexNumber);
+            byte g = byte.Parse(hex.Substring(2,2), System.Globalization.NumberStyles.HexNumber);
+            byte b = byte.Parse(hex.Substring(4,2), System.Globalization.NumberStyles.HexNumber);
+            //Only use alpha if the string has enough characters
+            if(hex.Length == 8){
+                a = byte.Parse(hex.Substring(6,2), System.Globalization.NumberStyles.HexNumber);
+            }
+            return new Color32(r,g,b,a);
+        }
+
     }
 
 }

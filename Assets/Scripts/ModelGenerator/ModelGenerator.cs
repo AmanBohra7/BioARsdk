@@ -8,15 +8,24 @@ using CustomUtils;
 public class ModelGenerator : MonoBehaviour
 {
 
+    // Others
+    public GameObject ePanel;
+    public GameObject nPanel;
+
+    // model parent variable
     public GameObject structureParent;
 
+    //  Model components variables
     public GameObject m_nucleusPrefab;
     public GameObject m_electronPrefab; 
     public List<GameObject> m_ringsPrefab;
 
+
     void Start(){
-       
+    
+
         // int num = ElectrionDectectionUIManager.SHARED_STRUCTURE.number;
+        // Debug.Log("PRINT NUM : "+num.ToString());
         // if(num != 0)
         //     CreateStructure(num);
         // else{
@@ -24,7 +33,7 @@ public class ModelGenerator : MonoBehaviour
         //     Debug.Log("NO received value from screen shot script!");
         // }
           
-        CreateStructure(10);
+        CreateStructure(11);
     }
 
 
@@ -40,6 +49,14 @@ public class ModelGenerator : MonoBehaviour
         try{
             Structure st = Newtonsoft.Json.JsonConvert.DeserializeObject<Structure>(jsonstring);
             GenerateStructureModel(st);
+
+            // disable all electrons gizmos 
+            UtilsClass.ToggleGizmos(
+                structureParent,
+                false
+            );
+
+            // GenerateStructureModel(ElectrionDectectionUIManager.SHARED_STRUCTURE);
         }
         catch(Exception e){
             Debug.Log("JSON DATA HAVE SOME VALUE ERROR!");
@@ -64,12 +81,26 @@ public class ModelGenerator : MonoBehaviour
     }
 
     void CreateNucleus(Vector3 pos,Transform parentTrans){
-        Instantiate(
+        GameObject tmp =  Instantiate(
             m_nucleusPrefab,
             pos,
             m_nucleusPrefab.transform.rotation,
             parentTrans
         );
+
+        GameObject tempObj = Instantiate(
+            nPanel,
+            pos,
+            nPanel.transform.rotation
+        );
+        tempObj.transform.parent = tmp.transform;
+        tempObj.transform.localScale = new Vector3(
+            tempObj.transform.localScale.x / 4f,
+            tempObj.transform.localScale.y / 4f,
+            tempObj.transform.localScale.z / 4f
+        );
+        tempObj.GetComponent<Canvas>().worldCamera = Camera.main;
+
     }
 
     void CreateElectron(GameObject ringObject,int num_ele){
@@ -79,14 +110,31 @@ public class ModelGenerator : MonoBehaviour
         for(int i = 0 ; i < num_ele ; i++){        
             float x =  radius * Mathf.Cos(2 * Mathf.PI * i / num_ele); 
             float z =  radius * Mathf.Sin(2 * Mathf.PI * i / num_ele);
-            Instantiate(
+            GameObject elec = Instantiate(
                 m_electronPrefab,
                 new Vector3(x,structureParent.transform.position.y,z),
                 m_electronPrefab.transform.rotation,
                 ringObject.transform
+            );  
+
+            // generating gizmos
+            CreateElecPanel(
+                new Vector3(x,structureParent.transform.position.y,z),
+                elec.transform
             );
         }
 
+    }
+
+
+    void CreateElecPanel(Vector3 ePose,Transform eParent){
+        GameObject tempObj = Instantiate(
+            ePanel,
+            ePose,
+            ePanel.transform.rotation,
+            eParent
+        );
+        tempObj.GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
 

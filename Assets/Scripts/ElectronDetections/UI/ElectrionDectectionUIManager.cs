@@ -1,10 +1,10 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
-using TMPro;
 using System;
 using CustomUtils;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ElectrionDectectionUIManager : MonoBehaviour{
    
@@ -77,7 +77,7 @@ public class ElectrionDectectionUIManager : MonoBehaviour{
     public void GetJSONData(int req_num){
         test.text = "GOT INTO GET JSON";
         string jsonstring = UtilsClass.GetElementData(req_num);
-        if(jsonstring == "JSON DATA HAVE SOME VALUE ERROR!")
+        if(jsonstring == "JSON DATA HAS SOME VALUE ERROR!")
             test.text = jsonstring;
         // test.text = jsonstring;
         try{
@@ -85,7 +85,7 @@ public class ElectrionDectectionUIManager : MonoBehaviour{
             SHARED_STRUCTURE = st;
             UpdateSliderBarData(st,req_num);
         }catch(Exception e){
-            Debug.Log("JSON DATA HAVE SOME VALUE ERROR!");
+            Debug.Log("JSON DATA HAS SOME VALUE ERROR!");
         }
     }
 
@@ -230,13 +230,12 @@ public class ElectrionDectectionUIManager : MonoBehaviour{
         scannedImage.SetActive(state);
     }
 
-    public void SetDetectedElectronText(int count){
+    public void SetDetectedElectronText(int count){ 
         detectionInforamtion.GetComponent<TextMeshProUGUI>().text = 
             "Detected : "+ count.ToString();
     }
 
     #endregion
-
 }
 
 
@@ -248,4 +247,4 @@ public class ElectrionDectectionUIManager : MonoBehaviour{
 // ingo pannel with dummy information 
 
 
-// slider intial pose - 
+// slider intial pose -

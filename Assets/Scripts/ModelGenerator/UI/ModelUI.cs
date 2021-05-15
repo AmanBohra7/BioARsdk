@@ -26,6 +26,9 @@ public class ModelUI : MonoBehaviour
     public TextMeshProUGUI density;
 
 
+    // Colors
+    public Material whiteColor;
+
     void Start(){
         // Color c = new Color(255,255,255,255);
         // startDisplay.GetComponent<Image>().color = c;
@@ -35,12 +38,14 @@ public class ModelUI : MonoBehaviour
         endDisplay.SetActive(true);
         endDisplay.GetComponent<RectTransform>().localPosition = new Vector3(0,170,0);
 
-
         structureParent.transform.localScale = new Vector3(0f,0f,0f); 
         StartCoroutine(StructureSizeAnim(1.5f));
 
         UpdateMolData(ScreenShot.DETECTED_VALUE);
         // UpdateMolData(20);
+
+        // Updating color to white defualt one
+        UtilsClass.RemoveStructureColor(structureParent,whiteColor);
     }
     
 
@@ -57,8 +62,8 @@ public class ModelUI : MonoBehaviour
             phase.text = st.phase;
             density.text = st.density.ToString();
             atomic_mass.text = st.atomic_mass.ToString();
-            melt_point.text = st.melt.ToString()+" C";
-            boil_point.text = st.boil.ToString()+" C";
+            melt_point.text = st.melt.ToString()+" K";
+            boil_point.text = st.boil.ToString()+" K";
 
 
         }catch(Exception e){

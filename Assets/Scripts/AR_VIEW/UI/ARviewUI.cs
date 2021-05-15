@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using CustomUtils;
 
 public class ARviewUI : MonoBehaviour
 {
@@ -25,6 +24,11 @@ public class ARviewUI : MonoBehaviour
     private bool colorPressed;
     private bool gizmosPressed;
 
+    // colors
+    public Material blueColor;
+    public Material redColor;
+    public Material ringColor;
+    public Material whiteColor;
 
 
     void Awake(){
@@ -49,6 +53,10 @@ public class ARviewUI : MonoBehaviour
       // default state for both the toggles
       colorPressed = false;
       gizmosPressed = false;
+
+
+      // calling this function initially to set the state of color button to active
+      ColorBtnPressed();
 
     }
 
@@ -77,44 +85,52 @@ public class ARviewUI : MonoBehaviour
       colorPressed = !colorPressed;
 
       if(colorPressed){
-        Color c = ToColor("#2699FB");
+        
+        Color c = UtilsClass.ToColor("#2699FB");
         colorBtn.GetComponent<Image>().color = c;
         colorBtn.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(255,255,255,255);
+        
+        UtilsClass.ChangeStructureToColored(
+          stParent,
+          redColor,
+          blueColor,
+          ringColor
+        );
+
+
       }else{
         colorBtn.GetComponent<Image>().color = new Color(255,255,255,255);
-        Color c = ToColor("#464A53");
+        Color c = UtilsClass.ToColor("#464A53");
         colorBtn.transform.GetChild(0).GetComponentInChildren<Image>().color = c;
+
+        UtilsClass.RemoveStructureColor(
+          stParent,
+          whiteColor
+        );
+
       }
+
     }
 
     public void GizmosBtnPressed(){
       gizmosPressed = !gizmosPressed;
 
       if(gizmosPressed){
-        Color c = ToColor("#2699FB");
+        Color c = UtilsClass.ToColor("#2699FB");
         gizmosBtn.GetComponent<Image>().color = c;
         gizmosBtn.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(255,255,255,255);
+
+        UtilsClass.ToggleGizmos(stParent,true);
+
       }else{
         gizmosBtn.GetComponent<Image>().color = new Color(255,255,255,255);
-        Color c = ToColor("#464A53");
+        Color c = UtilsClass.ToColor("#464A53");
         gizmosBtn.transform.GetChild(0).GetComponentInChildren<Image>().color = c;
+
+        UtilsClass.ToggleGizmos(stParent,false);
       }
+
     }
 
-
-    public Color32 ToColor(string hex)
-    {
-         hex = hex.Replace ("0x", "");//in case the string is formatted 0xFFFFFF
-         hex = hex.Replace ("#", "");//in case the string is formatted #FFFFFF
-         byte a = 255;//assume fully visible unless specified in hex
-         byte r = byte.Parse(hex.Substring(0,2), System.Globalization.NumberStyles.HexNumber);
-         byte g = byte.Parse(hex.Substring(2,2), System.Globalization.NumberStyles.HexNumber);
-         byte b = byte.Parse(hex.Substring(4,2), System.Globalization.NumberStyles.HexNumber);
-         //Only use alpha if the string has enough characters
-         if(hex.Length == 8){
-             a = byte.Parse(hex.Substring(6,2), System.Globalization.NumberStyles.HexNumber);
-         }
-         return new Color32(r,g,b,a);
-    }
 
 }

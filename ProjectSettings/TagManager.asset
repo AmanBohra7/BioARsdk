@@ -6,6 +6,10 @@ TagManager:
   tags:
   - InfoTag
   - StructureParent
+  - UICamera
+  - Electron
+  - Nu
+  - Ring
   layers:
   - Default
   - TransparentFX

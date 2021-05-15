@@ -99,12 +99,18 @@ public class ViewARController : MonoBehaviour{
 
                         
                         StartCoroutine(HideMarkerAnim());
-                        
-                        // UIinstance.CreateNamePanel(m_ProtienAnchor.transform.position);
-                        UIinstance.CreateConfigPanel(m_ProtienAnchor.transform.position,
-                                        m_ProtienAnchor.transform);
+
+
+
+
+
+                        // UIinstance.CreateConfigPanel(m_ProtienAnchor.transform.position,
+                        //                 m_ProtienAnchor.transform);
 
                         StartCoroutine(ShowStructure(1.1f));
+
+                        
+                       
 
                     }
                 }
@@ -115,6 +121,22 @@ public class ViewARController : MonoBehaviour{
 
     } // end update
 
+
+    private float CalSize(GameObject stParent){
+        float ret_size = 0;
+
+        int count = stParent.transform.childCount;
+
+        GameObject child = stParent.transform.GetChild(count - 1).gameObject;
+
+        ret_size = child.GetComponent<BoxCollider>().size.y;
+
+        ret_size = ( ret_size / 2 ) * 0.05f;
+
+        return ret_size;
+    }
+
+    // 5.050002 / 2
 
     IEnumerator HideMarkerAnim(float waitTime = 0){
         yield return new WaitForSeconds(waitTime);
@@ -151,6 +173,41 @@ public class ViewARController : MonoBehaviour{
         Vector3 newRot = new Vector3(-10f,-122f,-132f);
         LeanTween.rotate(STRUCTURE_ELEMENT,newRot,animationTime).setEaseOutBack();
 
+    
+        // call for creating name panel
+        CreateNamePanel();
+        // call for creating config panel
+        CreateConfigPanel();
     }
+
+    private void CreateNamePanel(){
+        // call for name
+        float upSize = CalSize(STRUCTURE_ELEMENT);
+        //  adding y distance of structure itself
+        upSize += .15f;
+        //  adding approx size of panel itself
+        upSize += .05f;
+        Vector3 newPoseForNamePanel = new Vector3(
+            m_ProtienAnchor.transform.position.x,
+            m_ProtienAnchor.transform.position.y + upSize,
+            m_ProtienAnchor.transform.position.z
+        );
+        UIinstance.CreateNamePanel(newPoseForNamePanel,
+                        m_ProtienAnchor.transform);
+    }
+
+
+    private void CreateConfigPanel(){
+        GameObject tmp = UIinstance.CreateConfigPanel(m_ProtienAnchor.transform.position,
+                        m_ProtienAnchor.transform);
+        Vector3 newPose = new Vector3(
+            tmp.transform.position.x,
+            tmp.transform.position.y,
+            tmp.transform.position.z - 0.12f
+        );
+        tmp.transform.position = newPose;
+    }
+
+
 
 }

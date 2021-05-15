@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8423483476083108144}
   m_Layer: 0
   m_Name: ring08
-  m_TagString: Untagged
+  m_TagString: Ring
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 980c8849526a82644a8cbedff91c68b4, type: 3}
+  - {fileID: 2100000, guid: e0b87177deff3d8478d4de191f861437, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

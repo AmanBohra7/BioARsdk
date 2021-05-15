@@ -2714,6 +2714,7 @@ MonoBehaviour:
   atomic_mass: {fileID: 770237115}
   phase: {fileID: 775598048}
   density: {fileID: 1258090319}
+  whiteColor: {fileID: 2100000, guid: 43ace1d1472268040926ed4b30b093dc, type: 2}
 --- !u!1 &1258090317
 GameObject:
   m_ObjectHideFlags: 0
@@ -4106,6 +4107,18 @@ PrefabInstance:
       propertyPath: structureParent
       value: 
       objectReference: {fileID: 803123379}
+    - target: {fileID: 1750240053157616161, guid: a0a43931a7e0b9e48a78caa3c6acc77b,
+        type: 3}
+      propertyPath: ePanel
+      value: 
+      objectReference: {fileID: 2899381987923376751, guid: be3cf57cf18123742b5d57baf1b3d108,
+        type: 3}
+    - target: {fileID: 1750240053157616161, guid: a0a43931a7e0b9e48a78caa3c6acc77b,
+        type: 3}
+      propertyPath: nPanel
+      value: 
+      objectReference: {fileID: 8561257459213623925, guid: 795edf7c83df52142b0ebefd53293e60,
+        type: 3}
     - target: {fileID: 1750240053157616162, guid: a0a43931a7e0b9e48a78caa3c6acc77b,
         type: 3}
       propertyPath: m_LocalPosition.x
