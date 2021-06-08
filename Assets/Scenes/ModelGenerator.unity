@@ -3223,7 +3223,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -98.441025, y: 0, z: -91.42346, w: 0}
   m_textInfo:
     textComponent: {fileID: 1354444146}
     characterCount: 8
@@ -4117,7 +4117,7 @@ PrefabInstance:
         type: 3}
       propertyPath: nPanel
       value: 
-      objectReference: {fileID: 8561257459213623925, guid: 795edf7c83df52142b0ebefd53293e60,
+      objectReference: {fileID: 3256812554832312633, guid: 795edf7c83df52142b0ebefd53293e60,
         type: 3}
     - target: {fileID: 1750240053157616162, guid: a0a43931a7e0b9e48a78caa3c6acc77b,
         type: 3}

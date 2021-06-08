@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System.IO;
 using CustomUtils;
+using UnityEngine.Networking;
 
 // Take screen shot
 // crop screen shot
@@ -44,7 +45,7 @@ public class ScreenShot : MonoBehaviour
         blurSizeInput.onEndEdit.AddListener(delegate {UpdateValues();} );
 
         // testing
-        // StartCoroutine(ReadFromStreamingAssets());
+        StartCoroutine(ReadFromStreamingAssets());
     }
 
     void UpdateValues(){
@@ -113,13 +114,13 @@ public class ScreenShot : MonoBehaviour
 
     IEnumerator ReadFromStreamingAssets()
     {
-        string filePath = System.IO.Path.Combine(Application.streamingAssetsPath+"/", "testdata.txt");
+        string filePath = System.IO.Path.Combine(Application.streamingAssetsPath+"/", "data.txt");
         // print(filePath);
         string result = "";
         Debug.Log("reading . .. .");
         if (filePath.Contains("://") || filePath.Contains(":///"))
         {
-            UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(filePath);
+            UnityWebRequest www = UnityWebRequest.Get(filePath);
 			yield return www.SendWebRequest();
             result = www.downloadHandler.text;
             if(result == "")
