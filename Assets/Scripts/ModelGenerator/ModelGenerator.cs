@@ -24,16 +24,16 @@ public class ModelGenerator : MonoBehaviour
     void Start(){
     
 
-        // int num = ElectrionDectectionUIManager.SHARED_STRUCTURE.number;
-        // Debug.Log("PRINT NUM : "+num.ToString());
-        // if(num != 0)
-        //     CreateStructure(num);
-        // else{
-        //     CreateStructure(11);
-        //     Debug.Log("NO received value from screen shot script!");
-        // }
+        int num = ElectrionDectectionUIManager.SHARED_STRUCTURE.number;
+        Debug.Log("PRINT NUM : "+num.ToString());
+        if(num != 0)
+            CreateStructure(num);
+        else{
+            CreateStructure(11);
+            Debug.Log("NO received value from screen shot script!");
+        }
           
-        CreateStructure(11);
+        // CreateStructure(8);
     }
 
 
