@@ -26,6 +26,7 @@ public class ModelGenerator : MonoBehaviour
 
         int num = ElectrionDectectionUIManager.SHARED_STRUCTURE.number;
         Debug.Log("PRINT NUM : "+num.ToString());
+        // int num = 6;
         if(num != 0)
             CreateStructure(num);
         else{
@@ -45,6 +46,9 @@ public class ModelGenerator : MonoBehaviour
     public void CreateStructure(int num_elec){
 
         string jsonstring = UtilsClass.GetElementData(num_elec);
+
+        Debug.LogWarning(jsonstring);
+
         // Debug.Log(jsonstring);
         try{
             Structure st = Newtonsoft.Json.JsonConvert.DeserializeObject<Structure>(jsonstring);
@@ -70,14 +74,8 @@ public class ModelGenerator : MonoBehaviour
     ///</summary>
     ///<param name="mol">mol</param>
     public void GenerateStructureModel(Structure mol){
-
-        // GameObject parentObj = new GameObject(mol.name);
-        // parentObj.transform.position = Vector3.zero;
-
         CreateNucleus(structureParent.transform.position,structureParent.transform);
-        // create electron function is called in createShellRing function 
         CreateShellRing(structureParent.transform.position,structureParent.transform,mol.shells);
-
     }
 
     void CreateNucleus(Vector3 pos,Transform parentTrans){

@@ -18,19 +18,16 @@ namespace CustomUtils{
         ///<parms name="size">size</params>
         ///<parms name="offset">offset</params>
         public static Texture2D CropImage(Texture2D textureToCrop,int size = 900,int offset = 0){
-
             Color[] arr;
             arr = textureToCrop.GetPixels((textureToCrop.width - size) / 2,
                 ((textureToCrop.height - size) / 2) + 200,
                 size,size,0);
-                
             Texture2D tmpTexture = new Texture2D(size,size,TextureFormat.RGBA32,false);
             tmpTexture.SetPixels(0,0,size,size,arr,0);
             tmpTexture.Apply();
-
             return tmpTexture;
-    
         }
+        
 
         ///<summary>
         /// Detects number of electrons in the texture image and return new texture with
